@@ -1,3 +1,20 @@
+/**
+ * Copyright (c) 2024. Rossyn
+ * <p>
+ * All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.rossyn.onboarding.design
 
 import android.content.Intent
@@ -11,6 +28,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.tabs.TabLayout
 import com.rossyn.onboarding.design.databinding.ActivityOnboardingBinding
 
+/**
+ * Handles the onboarding flow of the application.
+ * Shows introduction screens to first-time users and manages navigation between screens.
+ */
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
@@ -39,14 +60,22 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
 
-
-
         // Setup views
         val btnAnim = AnimationUtils.loadAnimation(applicationContext, R.anim.button_animation)
         val mList = listOf(
-            ScreenItem("Fresh Food", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit", R.drawable.img1),
-            ScreenItem("Fast Delivery", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit", R.drawable.img2),
-            ScreenItem("Easy Payment", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit", R.drawable.img3)
+            ScreenItem(
+                "Fresh Food",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",
+                R.drawable.img1
+            ), ScreenItem(
+                "Fast Delivery",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",
+                R.drawable.img2
+            ), ScreenItem(
+                "Easy Payment",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",
+                R.drawable.img3
+            )
         )
 
         // Setup ViewPager
@@ -83,32 +112,37 @@ class OnboardingActivity : AppCompatActivity() {
             binding.screenViewpager.setCurrentItem(mList.size)
         }
 
-
-
-
-
-
-
     }
 
+    /**
+     * Checks if the user has already seen the onboarding screens.
+     * @return true if onboarding was previously completed, false otherwise
+     */
     private fun restorePrefData(): Boolean {
         val pref = getSharedPreferences("myPrefs", MODE_PRIVATE)
         return pref.getBoolean("isIntroOpnend", false)
     }
 
+    /**
+     * Saves the onboarding completion status to SharedPreferences.
+     */
     private fun savePrefsData() {
-        getSharedPreferences("myPrefs", MODE_PRIVATE).edit()
-            .putBoolean("isIntroOpnend", true)
+        getSharedPreferences("myPrefs", MODE_PRIVATE).edit().putBoolean("isIntroOpnend", true)
             .apply()
     }
 
+    /**
+     * Configures the UI for the last onboarding screen.
+     * Shows the Get Started button and hides other navigation elements.
+     */
     private fun loadLastScreen() {
         binding.apply {
             btnNext.visibility = View.INVISIBLE
             btnGetStarted.visibility = View.VISIBLE
             tvSkip.visibility = View.INVISIBLE
             tabIndicator.visibility = View.INVISIBLE
-            btnGetStarted.animation = AnimationUtils.loadAnimation(applicationContext, R.anim.button_animation)
+            btnGetStarted.animation =
+                AnimationUtils.loadAnimation(applicationContext, R.anim.button_animation)
         }
     }
 
