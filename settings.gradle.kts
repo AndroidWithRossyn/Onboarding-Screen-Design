@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Onboarding"
-include(":design-1")
- 
+include(":design-1", ":design-2")
+
